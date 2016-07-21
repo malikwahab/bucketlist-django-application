@@ -1,0 +1,5 @@
+# virtualenviroment
+/venv
+
+# cache files
+*.pyc
