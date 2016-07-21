@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'buppli.apps.BuppliConfig',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,6 +53,29 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'bucketlist_application.urls'
 
 WSGI_APPLICATION = 'bucketlist_application.wsgi.application'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+    'DEFAULT_VERSIONING_CLASS':
+    'rest_framework.versioning.AcceptHeaderVersioning',
+    'SEARCH_PARAM': 'q',
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
+    'MAX_LIMIT': 100,
+}
+
+import datetime
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=21600)
+}
 
 
 # Database
