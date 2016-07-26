@@ -9,8 +9,7 @@ class BucketListItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BucketListItem
-        fields = ('id', 'name', 'done', 'date_created', 'date_modified',
-                  'bucketlist')
+        fields = ('id', 'name', 'done', 'date_created', 'date_modified',)
 
 
 class BucketListSerializer(serializers.ModelSerializer):

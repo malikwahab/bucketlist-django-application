@@ -1,0 +1,191 @@
+{% load static %}
+{% load bootstrap3 %}
+
+ <html>
+ <head>
+     <title> buppli</title>
+     {% bootstrap_css %}
+     <link rel="stylesheet", href={% static "css/main.css" %} />
+     <style >
+     </style>
+ </head>
+
+ <body>
+
+     <nav class="navbar navbar-default">
+       <div class="container-fluid">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header">
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-buppli-navbar-collapse-1" aria-expanded="false">
+             <span class="sr-only">Toggle navigation</span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+           <a class="navbar-brand" href="#">buppli</a>
+         </div>
+
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-buppli-navbar-collapse-1">
+
+           <ul class="nav navbar-nav navbar-right">
+             <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }} <span class="caret"></span></a>
+               <ul class="dropdown-menu">
+                 <li><a href="/logout">Logout</a></li>
+               </ul>
+             </li>
+           </ul>
+         </div><!-- /.navbar-collapse -->
+       </div><!-- /.container-fluid -->
+   </nav>
+   <div class="container" >
+               <div class="row bucketlists-row" >
+                   {% for bucketlist in bucketlists.all %}
+                   <div class="col-md-4" >
+                           <div class="bucketlist" data-id={{bucketlist.id}} >
+                               <h4 class="bucketlist-head"> {{ bucketlist.name }}
+                                   <span class="pull-right">
+                                       <a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
+                                       <a href="#"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                       <a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                   </span>
+                               </h4>
+                           {% for item in bucketlist.items.all %}
+                               <div class="bucketlists-item" data-id={{item.id}}>
+                                   <input type='checkbox' class='done' {% if item.done %} checked {% endif %}>
+                                   <p> {{ item.name }} </p>
+                               </div>
+                           {% endfor %}
+                           <form method="POST" action="/api/bucketlists/{{bucketlist.id}}/items/" >
+                               <textarea class="form-control" rows="2"></textarea>
+                               <button type="submit" class="btn btn-primary btn-xs pull-right">
+                                save
+                               </button>
+                           </form>
+                           <div class="item-add" >
+                               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                           </div>
+                           </div>
+                   </div>
+                   {% endfor %}
+               </div>
+               <button type="button" class="add-bucketlist" data-toggle="modal" data-target="#bucketlist-form">
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+               </button>
+               <!-- Modal -->
+                <div class="modal fade" id="bucketlist-form" tabindex="-1" role="dialog" aria-labelledby="bucketlist-formLabel">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="bucketlist-formLabel">Create Bucketlist</h4>
+                  </div>
+                  <div class="modal-body">
+                      <form method="POST" action="/api/bucketlists/" >
+                          <textarea class="form-control" rows="2" name="name" ></textarea>
+                          {% csrf_token %}
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary create" data-dismiss="modal">Create</button>
+                  </div>
+                </div>
+                </div>
+                </div>
+               <footer>
+                   <hr class="divider">
+                   <p class="pull-right"><a href="">Back to top</a></p>
+                   <p>&copy; 2016 <a href="https://github.com/andela-aabdulwahab" target="_blank">andela-aabdulwahab</a> </p>
+               </footer>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+{% bootstrap_javascript %}
+<script type="text/javaScript" >
+  $( document ).ready(function() {
+    $( "body" ).on("click", ".item-add", function() {
+        $(this).siblings("form").slideToggle(200);
+    });
+
+    $("body").on("click", ".bucketlists-item p", function(e){
+        var checkbox = $(this).siblings("input").trigger("click");
+    })
+
+    $("body").on("change", ".done", function(e){
+        var itemContainer = $(this).parents(".bucketlists-item");
+        var itemId = itemContainer.attr("data-id");
+        var bucketlistUrl = itemContainer.siblings("form").attr("action");
+        var itemUrl = bucketlistUrl+itemId+"/"
+        var done = $(this).is(":checked") ? true : false;
+        var csrf = $('input[name=csrfmiddlewaretoken]').val();
+        var data = {
+            'done': done,
+            'csrfmiddlewaretoken': csrf
+        }
+        $.ajax({
+            method: "PUT",
+            url: itemUrl,
+            dataType: "json",
+            data: data
+        }).done(function(e){
+            console.log("SUCCESS")
+        });
+    })
+
+    $("body").on('click', '.create', function(e){
+        var nameField = $(".modal-body form textarea");
+        var bucketlistName = nameField.val();
+        nameField.val('');
+        var csrf = $('input[name=csrfmiddlewaretoken]').val()
+        var data = {
+            'name': bucketlistName,
+            'csrfmiddlewaretoken': csrf
+        }
+        $.ajax({
+              method: "POST",
+              url: "/api/bucketlists/",
+              dataType: "json",
+              data: data
+          }).done(function(e){
+                id = e.id;
+                var bucketlist = '<div class="col-md-4" ><div class="bucketlist" data-id="'+id+'"><h4 class="bucketlist-head">'+bucketlistName+'<span class="pull-right">'+
+                                 '<a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>'+
+                                 '<a href="#"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>'+
+                                 '<a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>'+
+                                 '</span></h4><form method="POST" action="/api/bucketlists/'+id+'/items/"><textarea class="form-control" rows="2"></textarea>'+
+                                 '<button type="submit" class="btn btn-primary btn-xs pull-right">save</button></form><div class="item-add">'+
+                                 '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></div></div></div>'
+                $('.bucketlists-row').append(bucketlist)
+            });
+    });
+
+    $("body").on("submit", ".bucketlist form", function(e){
+        e.preventDefault();
+        var _this = $(this)
+        var itemTextarea = _this.children("textarea");
+        var itemUrl = _this.attr('action')
+        var itemName = itemTextarea.val()
+        itemTextarea.val('')
+        var csrf = $('input[name=csrfmiddlewaretoken]').val()
+        var data = {
+            'name': itemName,
+            'csrfmiddlewaretoken': csrf
+        }
+        $.ajax({
+              method: "POST",
+              url: itemUrl,
+              dataType: "json",
+              data: data
+          }).done(function(e){
+              id = e.id;
+              var item = '<div class="bucketlists-item" data-id='+id+'><input type="checkbox" '+
+                         'class="done"><p>'+itemName+'</p></div>';
+              _this.before(item);
+              _this.slideToggle(200);
+        });
+    });
+
+  });
+</script>
+</html>

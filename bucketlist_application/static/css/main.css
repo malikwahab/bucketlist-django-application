@@ -1,0 +1,149 @@
+.navbar-default .navbar-brand {
+    color: #50E3C2;
+}
+
+.jumbotron {
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left bottom;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 60%;
+}
+body {
+    background-color: #EDEDED;
+}
+
+.jumbotron h1 {
+    color: #fff;
+    text-align: center;
+}
+.jumbotron .col-md-8 {
+    padding-top: 8em;
+}
+.jumbotron .col-md-4 {
+    padding-top: 3em;
+}
+
+.jumbotron .control-label {
+    color: #fff;
+}
+
+.jumbotron .alert-error {
+    color: #f44336;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.tab-content {
+    padding-top: 1em;
+    width: 90%
+}
+.nav-tabs a {
+    color: #fff;
+}
+.nav-tabs {
+    width: 90%;
+}
+.bucketlists-row {
+    min-height: 70%;
+}
+.bucketlist {
+    box-shadow: 0px 0px 2px 0px;
+    height: auto;
+}
+.bucketlist-head {
+    background-color: #f44336;
+    padding: 0.5em;
+    color: #fff;
+    margin-bottom: 0;
+}
+.bucketlist-created {
+    background-color: #fff;
+    padding: 0.7em;
+}
+
+.bucketlist form{
+    margin: 0.5em 0.7em;
+    display: none;
+}
+
+.bucketlist form button {
+    margin-top: 3px;
+}
+h4 .glyphicon {
+    color: #fff;
+    font-size: 12px;
+}
+
+input[type=checkbox].done {
+    float: left;
+    margin-left: 0.5em;
+}
+
+input[type=checkbox]:checked + p {
+    text-decoration: line-through;
+}
+.bucketlists-item {
+    padding: 1em 0;
+    background-color: #fff;
+    box-shadow: 0 0 2px 0;
+    margin: 1em 0.7em;
+    border-radius: 4px;
+}
+.bucketlists-item p {
+    margin: 0 2.5em;
+    cursor: pointer;
+}
+.item-add, .item-add-disabled{
+    margin-top: 1.4em;
+    padding: 0.6em 0;
+    background-color: #D8D8D8;
+    border-top: 1px solid #BCBCBC;
+    text-align: center;
+}
+.item-add {
+    margin-top: 2.4em;
+    cursor: pointer;
+    clear: both;
+}
+
+.add-bucketlist {
+    position: fixed;
+    padding: 1.2em;
+    right: 5%;
+    bottom: 20%;
+    border-radius: 100%;
+    background: #d23f31;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.50);
+    font-size: 20px;
+    color: #fff;
+    border: none;
+}
+
+.add-bucketlist:focus {
+    border: none;
+    outline: none;
+}
+
+.divider {
+    margin: 40px 0;
+    border-top: 1px solid #fff;
+}
+footer {
+    position: relative;
+    bottom: 0;
+}
+/* .jumbotron input {
+    height: 3em;
+    background-color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+} */
