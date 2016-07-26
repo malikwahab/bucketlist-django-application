@@ -26,7 +26,8 @@ class BucketListSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.date_modified = datetime.now()
-        super(BucketListSerializer, self).update(instance, validated_data)
+        return super(BucketListSerializer, self).update(instance,
+                                                        validated_data)
 
     class Meta:
         model = BucketList

@@ -64,6 +64,31 @@ body {
     color: #fff;
     margin-bottom: 0;
 }
+
+.bucketlist-head h4 {
+    display: inline-block;
+}
+
+input[name=temp] {
+    outline: none;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    padding: 0;
+}
+
+.bucketlists-item input[name=temp] {
+    margin: 0 0.5em;
+}
+
+.bucketlist-head input[name=temp] {
+    background-color: #f44336;
+}
+
+input[name=temp]:focus {
+    border: none;
+}
 .bucketlist-created {
     background-color: #fff;
     padding: 0.7em;
@@ -87,7 +112,7 @@ input[type=checkbox].done {
     margin-left: 0.5em;
 }
 
-input[type=checkbox]:checked + p {
+input[type=checkbox]:checked + a + p {
     text-decoration: line-through;
 }
 .bucketlists-item {
@@ -99,7 +124,6 @@ input[type=checkbox]:checked + p {
 }
 .bucketlists-item p {
     margin: 0 2.5em;
-    cursor: pointer;
 }
 .item-add, .item-add-disabled{
     margin-top: 1.4em;
@@ -112,6 +136,15 @@ input[type=checkbox]:checked + p {
     margin-top: 2.4em;
     cursor: pointer;
     clear: both;
+}
+.item-delete {
+    color: #F44336;
+}
+
+.bucketlists-item a {
+    display: none;
+    position: relative;
+    right: 0.5em;
 }
 
 .add-bucketlist {
@@ -136,6 +169,7 @@ input[type=checkbox]:checked + p {
     margin: 40px 0;
     border-top: 1px solid #fff;
 }
+
 footer {
     position: relative;
     bottom: 0;
