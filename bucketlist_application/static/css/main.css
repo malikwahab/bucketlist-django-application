@@ -7,11 +7,13 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: left bottom;
+    background-color: rgba(0, 0, 0, 0.41);
+    background-blend-mode: overlay;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 60%;
+    height: 80%;
 }
 body {
     background-color: #EDEDED;
@@ -57,12 +59,29 @@ body {
 .bucketlist {
     box-shadow: 0px 0px 2px 0px;
     height: auto;
+    margin-bottom: 1em;
 }
 .bucketlist-head {
     background-color: #f44336;
     padding: 0.5em;
     color: #fff;
     margin-bottom: 0;
+}
+
+.col-md-4:nth-last-of-type(4n+1) .bucketlist .bucketlist-head {
+    background-color: #f44336;
+}
+
+.col-md-4:nth-last-of-type(4n+2) .bucketlist .bucketlist-head {
+    background-color: #F5A623;
+}
+
+.col-md-4:nth-last-of-type(4n+3) .bucketlist .bucketlist-head {
+    background-color: #50E3C2;
+}
+
+.col-md-4:nth-last-of-type(4n+4) .bucketlist .bucketlist-head {
+    background-color: #03a9f4;
 }
 
 .bucketlist-head h4 {
@@ -79,11 +98,11 @@ input[name=temp] {
 }
 
 .bucketlists-item input[name=temp] {
-    margin: 0 0.5em;
+    margin: 0 0.9em;
 }
 
 .bucketlist-head input[name=temp] {
-    background-color: #f44336;
+    background-color: transparent;
 }
 
 input[name=temp]:focus {
@@ -102,9 +121,11 @@ input[name=temp]:focus {
 .bucketlist form button {
     margin-top: 3px;
 }
-h4 .glyphicon {
+h4 .glyphicon, h4 .fa {
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
+    margin-left: 0.5em;
+    cursor: pointer;
 }
 
 input[type=checkbox].done {
@@ -124,6 +145,7 @@ input[type=checkbox]:checked + a + p {
     margin: 1em 0.7em;
     border-radius: 4px;
 }
+
 .bucketlists-item p {
     margin: 0 2.5em;
 }
@@ -153,7 +175,7 @@ input[type=checkbox]:checked + a + p {
     position: fixed;
     padding: 1.2em;
     right: 5%;
-    bottom: 20%;
+    bottom: 13%;
     border-radius: 100%;
     background: #d23f31;
     box-shadow: 0 4px 5px 0 rgba(0,0,0,0.50);
@@ -183,6 +205,10 @@ footer {
 }
 .isPublic {
     text-align: center;
+}
+
+.add-magin {
+    margin-bottom: 4em;
 }
 /* .jumbotron input {
     height: 3em;
