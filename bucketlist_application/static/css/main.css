@@ -114,6 +114,8 @@ input[type=checkbox].done {
 
 input[type=checkbox]:checked + a + p {
     text-decoration: line-through;
+    font-style: italic;
+    color: #9e9e9e;
 }
 .bucketlists-item {
     padding: 1em 0;
@@ -165,6 +167,11 @@ input[type=checkbox]:checked + a + p {
     outline: none;
 }
 
+.item-not-done, .item-done {
+    margin: 0;
+    padding: 0;
+}
+
 .divider {
     margin: 40px 0;
     border-top: 1px solid #fff;
@@ -173,6 +180,9 @@ input[type=checkbox]:checked + a + p {
 footer {
     position: relative;
     bottom: 0;
+}
+.isPublic {
+    text-align: center;
 }
 /* .jumbotron input {
     height: 3em;
