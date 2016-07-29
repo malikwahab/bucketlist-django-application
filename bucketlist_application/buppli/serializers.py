@@ -18,12 +18,11 @@ class BucketListSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='bucketlist-detail',
                                                format='html')
     items = BucketListItemSerializer(many=True, read_only=True)
-    name = serializers.CharField(max_length=100, required=True)
 
-    def validate_name(self, value):
-        if not value:
+    def create(self, validated_data):
+        if not validated_data.get("name"):
             raise serializers.ValidationError("Name cannot be empty")
-        return None
+        return super(BucketListSerializer, self).create(validated_data)
 
     def update(self, instance, validated_data):
         instance.date_modified = datetime.now()
