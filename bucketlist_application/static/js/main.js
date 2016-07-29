@@ -71,12 +71,12 @@ var inlineEdit = function(selector, changeType) {
 
 
 inlineEdit('.bucketlist-name', "bucketlist");
-inlineEdit('.bucketlists-item p', "item");
+inlineEdit('.item-not-done p, item-done p', "item");
 
 
   $( "body" ).on("click", ".item-add", function() {
       $(this).parents('.col-md-4').toggleClass("add-magin");
-      bucketlistGrid.packery();
+      bucketlistGrid.packery("shiftLayout");
       $(this).siblings("form").slideToggle(200);
   });
 
@@ -108,6 +108,7 @@ inlineEdit('.bucketlists-item p', "item");
       itemSelector: '.col-md-4',
       percentPosition: true
   });
+
 
   $("body").on('click', '.create', function(e){
       var nameField = $(".modal-body form textarea");
@@ -242,6 +243,12 @@ inlineEdit('.bucketlists-item p', "item");
 
   $(document).ajaxComplete(function(){
       bucketlistGrid.packery();
+  })
+
+  $('#myTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+      console.log($(this));
   })
 
 });

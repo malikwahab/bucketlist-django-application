@@ -19,19 +19,20 @@ body {
     background-color: #EDEDED;
 }
 
-.jumbotron h1 {
+.jumbotron h1, .jumbotron p{
     color: #fff;
     text-align: center;
+}
+
+.jumbotron p {
+
 }
 .jumbotron .col-md-8 {
     padding-top: 8em;
 }
+
 .jumbotron .col-md-4 {
     padding-top: 3em;
-}
-
-.jumbotron .control-label {
-    color: #fff;
 }
 
 .jumbotron .alert-error {
@@ -175,7 +176,7 @@ input[type=checkbox]:checked + a + p {
     position: fixed;
     padding: 1.2em;
     right: 5%;
-    bottom: 13%;
+    bottom: 17%;
     border-radius: 100%;
     background: #d23f31;
     box-shadow: 0 4px 5px 0 rgba(0,0,0,0.50);
@@ -184,7 +185,7 @@ input[type=checkbox]:checked + a + p {
     border: none;
 }
 
-.add-bucketlist:focus {
+.add-bucketlist:focus, .form-control:focus {
     border: none;
     outline: none;
 }
@@ -210,10 +211,43 @@ footer {
 .add-magin {
     margin-bottom: 4em;
 }
-/* .jumbotron input {
+
+.jumbotron .form-control {
+    text-align: center;
+    height: 3.5em;
+}
+
+.form-group label {
+    display: none;
+}
+
+.jumbotron input {
     height: 3em;
     background-color: rgba(255, 255, 255, 0.3);
     text-align: center;
     font-size: 18px;
     color: #fff;
-} */
+    border: none;
+}
+
+.jumbotron input:focus {
+    outline: none;
+    border: none;
+}
+
+.jumbotron button[type=submit] {
+    width: 100%;
+    height: 3.5em;
+    background-color: #03a9f4;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover, .nav-tabs>li>a:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+    border: none;
+}
+
+.errorlist {
+    color: #F44336;
+    list-style-type: none;
+}

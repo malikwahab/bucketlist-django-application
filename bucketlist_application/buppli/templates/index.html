@@ -17,42 +17,52 @@
                     <div class="row">
                         <div class="col-md-8" >
                             <h1>Live your dreams</h1>
+                            <p>The biggest adventure you can take is to live the life of your dreams</p>
                         </div>
                         <div class="col-md-4" >
                             <div>
                               <!-- Nav tabs -->
                               <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#login" aria-controls="login" role="tab" data-toggle="tab">login</a></li>
-                                <li role="presentation"><a href="#signup" aria-controls="signup" role="tab" data-toggle="tab">signup</a></li>
+                                <li role="presentation" {% if not signuperror %}class="active"{% endif %}><a href="#login" aria-controls="login" role="tab" data-toggle="tab">login</a></li>
+                                <li role="presentation" {% if signuperror %}class="active"{% endif %}><a href="#signup" aria-controls="signup" role="tab" data-toggle="tab">signup</a></li>
                               </ul>
 
                               <!-- Tab panes -->
                               <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="login">
+                                <div role="tabpanel" {% if not signuperror %}class="tab-pane active"{% else %}class="tab-pane"{% endif %} id="login">
                                     <form method="post" >
                                         {% if error %}
                                             {% bootstrap_alert error alert_type='error' %}
                                         {% endif %}
                                         {% csrf_token %}
                                         {% bootstrap_form loginform %}
+                                        <input name="login" hidden />
                                           {% buttons %}
-                                            <button type="submit" class="btn btn-primary pull-right">
+                                            <button type="submit" class="btn btn-primary pull-right" name="signup">
                                              Login
                                             </button>
                                           {% endbuttons %}
                                     </form>
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="signup">
-                                <form method="post">
-                                    <div class="form-group"><label class="control-label" for="id_username">Username</label><input class="form-control" id="id_username" maxlength="100" name="username" placeholder="username" required="required" title="" type="text"></div>
-                                    <div class="form-group"><label class="control-label" for="id_password">Email</label><input class="form-control" maxlength="100" name="password" placeholder="email" required="required" title="" type="text"></div>
-                                    <div class="form-group"><label class="control-label" for="id_password">Password</label><input class="form-control" id="id_password" maxlength="100" name="password" placeholder="password" required="required" title="" type="password"></div>
-                                      <div class="form-group">
-                                        <button type="submit" class="btn btn-primary pull-right">
-                                          Signup
-                                        </button>
-                                      </div>
-                                </form>
+                                <div role="tabpanel" {% if signuperror %}class="tab-pane active"{% else %}class="tab-pane"{% endif %} id="signup">
+                                    <form method="post" >
+                                        {% if signuperror %}
+                                            {% if signuperror.username %}
+                                                {{ signuperror.username }}
+                                            {% else %}
+                                                <ul class="errorlist" >
+                                                    <li>Password does not match </li>
+                                                </ul>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% csrf_token %}
+                                        {% bootstrap_form signupform %}
+                                          {% buttons %}
+                                            <button type="submit" class="btn btn-primary pull-right" name="signup">
+                                             Sign Up
+                                            </button>
+                                          {% endbuttons %}
+                                    </form>
                                 </div>
                               </div>
                             </div>
@@ -62,8 +72,8 @@
             </div> {# end of jumbotron #}
 
             <div class="container" >
-                <div class="row" >
-                    <h2 class="heading"> Looking for Ideas? </h2>
+                <h2 class="heading"> Looking for Ideas? </h2>
+                <div class="row bucketlists-row" >
                     {% for bucketlist in bucketlists %}
                     <div class="col-md-4" >
                             <div class="bucketlist" >
@@ -90,13 +100,7 @@
 
     </body>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://npmcdn.com/packery@2.1/dist/packery.pkgd.min.js"></script>
     {% bootstrap_javascript %}
-    <script type="text/javaScript" >
-
-    $('#myTabs a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-        console.log($(this));
-    })
-    </script>
+    <script src={% static "js/main.js" %} ></script>
 </html>
