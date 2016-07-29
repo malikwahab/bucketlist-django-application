@@ -7,6 +7,11 @@ from rest_framework_jwt.settings import api_settings
 
 class BucketListItemSerializer(serializers.ModelSerializer):
 
+    def create(self, validated_data):
+        if not validated_data.get("name"):
+            raise serializers.ValidationError("Name cannot be empty")
+        return super(BucketListItemSerializer, self).create(validated_data)
+
     class Meta:
         model = BucketListItem
         fields = ('id', 'name', 'done', 'date_created', 'date_modified',)

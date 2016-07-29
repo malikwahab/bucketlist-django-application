@@ -144,4 +144,117 @@ class TestBucketListAPI(APITestCase):
 
 
 class TestBucketListItemAPI(APITestCase):
-    pass
+
+    def setUp(self):
+        self.token = self.register_a_user("malikwahab")
+
+    def tearDown(self):
+        User.objects.all().delete()
+        BucketList.objects.all().delete()
+
+    def register_a_user(self, username):
+        self.user = {"username": username, "password": "malik"}
+        response = self.client.post("/api/auth/register/", self.user,
+                                    format="json")
+        return "JWT "+response.data.get("token")
+
+    def create_a_bucketlist(self, **kwargs):
+        url = "/api/bucketlists/"
+        data = {"name": "Travel the world"}
+        item_data = kwargs.get("item_data", {"name": "Visit the queen"})
+        self.client.credentials(HTTP_AUTHORIZATION=self.token)
+        bucketlist = self.client.post(url, data, format="json")
+        id = bucketlist.data['id']
+        bucketlist_url = "/api/bucketlists/{}/items/".format(id)
+        response = self.client.post(bucketlist_url, item_data, format="json")
+        item_id = 9
+        if not isinstance(response.data, list):
+            item_id = response.data.get('id')
+        item_url = bucketlist_url+"{}/".format(item_id)
+        return response, item_url, bucketlist_url
+
+    def test_unauthorize_access(self):
+        url = "/api/bucketlists/1/items/"
+        response_post = self.client.post(url, {}, format="json")
+        response_get = self.client.get(url)
+        response_put = self.client.put(url, {})
+        response_delete = self.client.delete(url)
+        self.assertEquals(response_post.status_code,
+                          response_get.status_code,
+                          status.HTTP_403_FORBIDDEN)
+        self.assertEquals(response_put.status_code,
+                          response_delete.status_code,
+                          status.HTTP_403_FORBIDDEN)
+
+    def test_not_permitted_access(self):
+        token = self.register_a_user("wahab")
+        item, item_url, bucketlist_url = self.create_a_bucketlist()
+        self.client.credentials(HTTP_AUTHORIZATION=token)
+        response_post = self.client.post(item_url, {}, format="json")
+        response_get = self.client.get(item_url)
+        response_put = self.client.put(item_url, {})
+        response_delete = self.client.delete(item_url)
+        self.assertEquals(response_post.status_code,
+                          response_get.status_code,
+                          status.HTTP_403_FORBIDDEN)
+        self.assertEquals(response_put.status_code,
+                          response_delete.status_code,
+                          status.HTTP_403_FORBIDDEN)
+
+    def test_create_item(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.token)
+        item, item_url, bucketlist_url = self.create_a_bucketlist()
+
+        # test create item
+        self.assertEqual(item.status_code, status.HTTP_201_CREATED)
+        self.assertIn("id", item.data)
+
+        # test create_item invalid
+        invalid_item, invalid_url, bucketlist_url = (self.create_a_bucketlist(item_data={}))
+        self.assertEqual(invalid_item.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_get_item(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.token)
+        item, item_url, bucketlist_url = self.create_a_bucketlist()
+
+        # test get items
+        response = self.client.get(bucketlist_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("results", response.data)
+
+        # test get single items
+        single_response = self.client.get(item_url)
+        self.assertEqual(single_response.status_code, status.HTTP_200_OK)
+        self.assertIn("id", single_response.data)
+
+        #  invalid items
+        invalid_response = self.client.get(bucketlist_url+"67/")
+        self.assertEqual(invalid_response.status_code,
+                         status.HTTP_404_NOT_FOUND)
+
+    def test_edit_item(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.token)
+        item, item_url, bucketlist_url = self.create_a_bucketlist()
+
+        # test edit items
+        response = self.client.put(item_url, {'done': 1}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # test invalid items
+        invalid_response = self.client.put(bucketlist_url+"90/", {},
+                                           format="json")
+        self.assertEqual(invalid_response.status_code,
+                         status.HTTP_404_NOT_FOUND)
+
+    def test_delete_item(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.token)
+        item, item_url, bucketlist_url = self.create_a_bucketlist()
+
+        # test delete items
+        response = self.client.delete(item_url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # test invalid delete
+        invalid_response = self.client.delete(item_url)
+        self.assertEqual(invalid_response.status_code,
+                         status.HTTP_404_NOT_FOUND)
