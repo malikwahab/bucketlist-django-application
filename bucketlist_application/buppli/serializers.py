@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from buppli.models import BucketList, BucketListItem
-from datetime import datetime
+from django.utils.timezone import now
 from django.contrib.auth.models import User
 from rest_framework_jwt.settings import api_settings
 
@@ -25,7 +25,7 @@ class BucketListSerializer(serializers.ModelSerializer):
         return super(BucketListSerializer, self).create(validated_data)
 
     def update(self, instance, validated_data):
-        instance.date_modified = datetime.now()
+        instance.date_modified = now()
         return super(BucketListSerializer, self).update(instance,
                                                         validated_data)
 
