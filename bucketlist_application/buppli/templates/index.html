@@ -38,7 +38,7 @@
                                         {% bootstrap_form loginform %}
                                         <input name="login" hidden />
                                           {% buttons %}
-                                            <button type="submit" class="btn btn-primary pull-right" name="signup">
+                                            <button type="submit" class="btn btn-primary" name="signin">
                                              Login
                                             </button>
                                           {% endbuttons %}
@@ -58,7 +58,7 @@
                                         {% csrf_token %}
                                         {% bootstrap_form signupform %}
                                           {% buttons %}
-                                            <button type="submit" class="btn btn-primary pull-right" name="signup">
+                                            <button type="submit" class="btn btn-primary" name="signup">
                                              Sign Up
                                             </button>
                                           {% endbuttons %}

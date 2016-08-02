@@ -78,7 +78,7 @@
                            {% endfor %}
                            </div>
 
-                           <form method="POST" action="/api/bucketlists/{{bucketlist.id}}/items/" >
+                           <form method="POST" action="/api/v1/bucketlists/{{bucketlist.id}}/items/" >
                                <textarea class="form-control" rows="2"></textarea>
                                <button type="submit" class="btn btn-primary btn-xs pull-right">
                                 save
@@ -106,7 +106,7 @@
                     <h4 class="modal-title" id="bucketlist-formLabel">Create Bucketlist</h4>
                   </div>
                   <div class="modal-body">
-                      <form method="POST" action="/api/bucketlists/" >
+                      <form method="POST" action="/api/v1/bucketlists/" >
                           <textarea class="form-control" rows="2" name="name" ></textarea>
                           {% csrf_token %}
                       </form>

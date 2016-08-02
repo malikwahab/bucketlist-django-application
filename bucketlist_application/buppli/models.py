@@ -5,7 +5,7 @@ from django.db import models
 
 class BaseModel(models.Model):
 
-    name = models.CharField(max_length=100, blank=True, default='')
+    name = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now_add=True)
 

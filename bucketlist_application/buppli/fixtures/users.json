@@ -1,0 +1,38 @@
+[
+{
+    "fields": {
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2016-08-01T08:36:22.814Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$24000$Yxrr25SXH1PN$VkYMdo3yeoWq+rpKasVJmbHk8+S5TPrFkZ3Y79oRbEQ=",
+        "email": "abdulmalik.abdulwahab@andela.com",
+        "date_joined": "2016-08-01T09:01:00.053Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "testmalik",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2016-08-01T08:36:22.814Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$24000$t4ms7t7gNGDv$mWOeL1lu6bWIG3oeHxOVBlvyxoZxptSfKO8ZTjyZVaw=",
+        "email": "abdulmalik.abdulwahab@andela.com",
+        "date_joined": "2016-08-01T08:36:22.814Z"
+    },
+    "model": "auth.user",
+    "pk": 2
+}
+]
