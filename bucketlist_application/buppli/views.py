@@ -11,11 +11,17 @@ from django.template import RequestContext
 
 
 def logout_view(request):
+    """Log out user and redirect to homapage."""
     logout(request)
     return redirect('/')
 
 
 class IndexView(TemplateView):
+    """Handles all HTTP request to the homepage.
+
+    Inherits:
+        TemplateView
+    """
     template_name = 'index.html'
     form_class = LoginForm
     second_form_class = SignUpForm
@@ -29,11 +35,13 @@ class IndexView(TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
+        """Checks the submitted form, then deligate to the appropriate func."""
         if "login" in request.POST:
             return self.post_login(request, *args, **kwargs)
         return self.post_new_user(request, *args, **kwargs)
 
     def post_login(self, request, *args, **kwargs):
+        """Handles request from the Login form."""
         form = self.form_class(request.POST)
         if not form.is_valid():
             context = self.get_context_data(**kwargs)
@@ -55,6 +63,7 @@ class IndexView(TemplateView):
         return response
 
     def post_new_user(self, request, *args, **kwargs):
+        """Handles post request from the Sign Up form."""
         form = self.second_form_class(request.POST)
         if form.is_valid():
             new_user = form.save()
@@ -75,10 +84,17 @@ class IndexView(TemplateView):
 
 
 class BucketListView(LoginRequiredMixin, TemplateView):
+    """Viewset for the /bucketlists page.
+
+    Inherits:
+        LoginRequiredMixin: Ensure all request is authenticated
+        TemplateView
+    """
     login_url = '/'
     template_name = 'bucketlists.html'
 
     def get_context_data(self, **kwargs):
+        """Get all the bucketlist belonging to the requesting user."""
         context = super(BucketListView, self).get_context_data(**kwargs)
         context['bucketlists'] = self.request.user.bucketlists
         return context
