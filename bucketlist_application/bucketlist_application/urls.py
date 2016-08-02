@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^api/v1/login/refresh_token/$', refresh_jwt_token),
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/', include(bucketlist_router.urls)),
+    url(r'^api/v1/docs/', include("rest_framework_swagger.urls")),
     url(r'^admin/', include(admin.site.urls)),
 ]
