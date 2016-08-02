@@ -20,9 +20,9 @@ urlpatterns = [
     url(r'^$', IndexView.as_view()),
     url(r'^bucketlists$', BucketListView.as_view()),
     url(r'^logout$', logout_view),
-    url(r'^api/login/$', obtain_jwt_token, name='login'),
-    url(r'^api/login/refresh_token/$', refresh_jwt_token),
-    url(r'^api/', include(router.urls)),
-    url(r'^api/', include(bucketlist_router.urls)),
+    url(r'^api/v1/login/$', obtain_jwt_token, name='login'),
+    url(r'^api/v1/login/refresh_token/$', refresh_jwt_token),
+    url(r'^api/v1/', include(router.urls)),
+    url(r'^api/v1/', include(bucketlist_router.urls)),
     url(r'^admin/', include(admin.site.urls)),
 ]
