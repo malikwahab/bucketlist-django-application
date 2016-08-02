@@ -5,3 +5,7 @@
 *.pyc
 
 superuser
+overview.txt
+
+bucketlist_application/staticfiles/
+bucketlist_application/ghostdriver.log

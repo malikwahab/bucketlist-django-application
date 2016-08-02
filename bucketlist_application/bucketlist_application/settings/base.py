@@ -10,7 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -21,8 +22,6 @@ SECRET_KEY = '*16=!t4**mnyl#6u6m!)89uu5)57!jjb)ciue)q+^o6bt!(7&)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -38,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'buppli.apps.BuppliConfig',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,6 +51,23 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'bucketlist_application.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
 
 WSGI_APPLICATION = 'bucketlist_application.wsgi.application'
 
@@ -105,4 +122,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
 STATIC_URL = '/static/'
+
+APPEND_SLASH = False
+
+STATIC_ROOT = 'staticfiles'

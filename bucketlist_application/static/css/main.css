@@ -1,0 +1,253 @@
+.navbar-default .navbar-brand {
+    color: #50E3C2;
+}
+
+.jumbotron {
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left bottom;
+    background-color: rgba(0, 0, 0, 0.41);
+    background-blend-mode: overlay;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 80%;
+}
+body {
+    background-color: #EDEDED;
+}
+
+.jumbotron h1, .jumbotron p{
+    color: #fff;
+    text-align: center;
+}
+
+.jumbotron p {
+
+}
+.jumbotron .col-md-8 {
+    padding-top: 8em;
+}
+
+.jumbotron .col-md-4 {
+    padding-top: 3em;
+}
+
+.jumbotron .alert-error {
+    color: #f44336;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.tab-content {
+    padding-top: 1em;
+    width: 90%
+}
+.nav-tabs a {
+    color: #fff;
+}
+.nav-tabs {
+    width: 90%;
+}
+.bucketlists-row {
+    min-height: 70%;
+}
+.bucketlist {
+    box-shadow: 0px 0px 2px 0px;
+    height: auto;
+    margin-bottom: 1em;
+}
+.bucketlist-head {
+    background-color: #f44336;
+    padding: 0.5em;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.col-md-4:nth-last-of-type(4n+1) .bucketlist .bucketlist-head {
+    background-color: #f44336;
+}
+
+.col-md-4:nth-last-of-type(4n+2) .bucketlist .bucketlist-head {
+    background-color: #F5A623;
+}
+
+.col-md-4:nth-last-of-type(4n+3) .bucketlist .bucketlist-head {
+    background-color: #50E3C2;
+}
+
+.col-md-4:nth-last-of-type(4n+4) .bucketlist .bucketlist-head {
+    background-color: #03a9f4;
+}
+
+.bucketlist-head h4 {
+    display: inline-block;
+}
+
+input[name=temp] {
+    outline: none;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    padding: 0;
+}
+
+.bucketlists-item input[name=temp] {
+    margin: 0 0.9em;
+}
+
+.bucketlist-head input[name=temp] {
+    background-color: transparent;
+}
+
+input[name=temp]:focus {
+    border: none;
+}
+.bucketlist-created {
+    background-color: #fff;
+    padding: 0.7em;
+}
+
+.bucketlist form{
+    margin: 0.5em 0.7em;
+    display: none;
+}
+
+.bucketlist form button {
+    margin-top: 3px;
+}
+h4 .glyphicon, h4 .fa {
+    color: #fff;
+    font-size: 14px;
+    margin-left: 0.5em;
+    cursor: pointer;
+}
+
+input[type=checkbox].done {
+    float: left;
+    margin-left: 0.5em;
+}
+
+input[type=checkbox]:checked + a + p {
+    text-decoration: line-through;
+    font-style: italic;
+    color: #9e9e9e;
+}
+.bucketlists-item {
+    padding: 1em 0;
+    background-color: #fff;
+    box-shadow: 0 0 2px 0;
+    margin: 1em 0.7em;
+    border-radius: 4px;
+}
+
+.bucketlists-item p {
+    margin: 0 2.5em;
+}
+.item-add, .item-add-disabled{
+    margin-top: 1.4em;
+    padding: 0.6em 0;
+    background-color: #D8D8D8;
+    border-top: 1px solid #BCBCBC;
+    text-align: center;
+}
+.item-add {
+    margin-top: 2.4em;
+    cursor: pointer;
+    clear: both;
+}
+.item-delete {
+    color: #F44336;
+}
+
+.bucketlists-item a {
+    display: none;
+    position: relative;
+    right: 0.5em;
+}
+
+.add-bucketlist {
+    position: fixed;
+    padding: 1.2em;
+    right: 5%;
+    bottom: 17%;
+    border-radius: 100%;
+    background: #d23f31;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.50);
+    font-size: 20px;
+    color: #fff;
+    border: none;
+}
+
+.add-bucketlist:focus, .form-control:focus {
+    border: none;
+    outline: none;
+}
+
+.item-not-done, .item-done {
+    margin: 0;
+    padding: 0;
+}
+
+.divider {
+    margin: 40px 0;
+    border-top: 1px solid #fff;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+}
+.isPublic {
+    text-align: center;
+}
+
+.add-magin {
+    margin-bottom: 4em;
+}
+
+.jumbotron .form-control {
+    text-align: center;
+    height: 3.5em;
+}
+
+.form-group label {
+    display: none;
+}
+
+.jumbotron input {
+    height: 3em;
+    background-color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    border: none;
+}
+
+.jumbotron input:focus {
+    outline: none;
+    border: none;
+}
+
+.jumbotron button[type=submit] {
+    width: 100%;
+    height: 3.5em;
+    background-color: #03a9f4;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover, .nav-tabs>li>a:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+    border: none;
+}
+
+.errorlist {
+    color: #F44336;
+    list-style-type: none;
+}

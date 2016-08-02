@@ -1,16 +1,20 @@
 from rest_framework import serializers
 from buppli.models import BucketList, BucketListItem
-from datetime import datetime
+from django.utils.timezone import now
 from django.contrib.auth.models import User
 from rest_framework_jwt.settings import api_settings
 
 
 class BucketListItemSerializer(serializers.ModelSerializer):
 
+    def create(self, validated_data):
+        if not validated_data.get("name"):
+            raise serializers.ValidationError("Name cannot be empty")
+        return super(BucketListItemSerializer, self).create(validated_data)
+
     class Meta:
         model = BucketListItem
-        fields = ('id', 'name', 'done', 'date_created', 'date_modified',
-                  'bucketlist')
+        fields = ('id', 'name', 'done', 'date_created', 'date_modified',)
 
 
 class BucketListSerializer(serializers.ModelSerializer):
@@ -20,14 +24,15 @@ class BucketListSerializer(serializers.ModelSerializer):
                                                format='html')
     items = BucketListItemSerializer(many=True, read_only=True)
 
-    def validate_name(self, value):
-        if not value:
+    def create(self, validated_data):
+        if not validated_data.get("name"):
             raise serializers.ValidationError("Name cannot be empty")
-        return value
+        return super(BucketListSerializer, self).create(validated_data)
 
     def update(self, instance, validated_data):
-        instance.date_modified = datetime.now()
-        super(BucketListSerializer, self).update(instance, validated_data)
+        instance.date_modified = now()
+        return super(BucketListSerializer, self).update(instance,
+                                                        validated_data)
 
     class Meta:
         model = BucketList
