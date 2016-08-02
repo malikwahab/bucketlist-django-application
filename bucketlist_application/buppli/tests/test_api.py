@@ -8,7 +8,7 @@ from buppli.models import BucketList
 class Testauthentication(APITestCase):
 
     def setUp(self):
-        self.reg_url = "/api/auth/register/"
+        self.reg_url = "/api/v1/auth/register/"
         self.data = {"username": "malikwahab", "password": "malik"}
         self.invalid_data = {"username": "malikwahab"}
         self.response = self.client.post(self.reg_url, self.data,
@@ -33,7 +33,7 @@ class Testauthentication(APITestCase):
                          status.HTTP_400_BAD_REQUEST)
 
     def test_login_user(self):
-        url = "/api/login/"
+        url = "/api/v1/login/"
         wrong_data = {"username": "malikwahab", "password": "wahab"}
 
         # test user successful login
@@ -53,9 +53,9 @@ class Testauthentication(APITestCase):
 class TestBucketListAPI(APITestCase):
 
     def setUp(self):
-        self.url = "/api/bucketlists/"
+        self.url = "/api/v1/bucketlists/"
         self.user = {"username": "malikwahab", "password": "malik"}
-        response = self.client.post("/api/auth/register/", self.user,
+        response = self.client.post("/api/v1/auth/register/", self.user,
                                     format="json")
         self.token = "JWT "+response.data.get("token")
 
@@ -154,18 +154,18 @@ class TestBucketListItemAPI(APITestCase):
 
     def register_a_user(self, username):
         self.user = {"username": username, "password": "malik"}
-        response = self.client.post("/api/auth/register/", self.user,
+        response = self.client.post("/api/v1/auth/register/", self.user,
                                     format="json")
         return "JWT "+response.data.get("token")
 
     def create_a_bucketlist(self, **kwargs):
-        url = "/api/bucketlists/"
+        url = "/api/v1/bucketlists/"
         data = {"name": "Travel the world"}
         item_data = kwargs.get("item_data", {"name": "Visit the queen"})
         self.client.credentials(HTTP_AUTHORIZATION=self.token)
         bucketlist = self.client.post(url, data, format="json")
         id = bucketlist.data['id']
-        bucketlist_url = "/api/bucketlists/{}/items/".format(id)
+        bucketlist_url = "/api/v1/bucketlists/{}/items/".format(id)
         response = self.client.post(bucketlist_url, item_data, format="json")
         item_id = 9
         if not isinstance(response.data, list):
