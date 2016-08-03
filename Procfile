@@ -1,3 +1,2 @@
-web: python codango/manage.py collectstatic --noinput --settings=buppli.settings;
-web: python codango/manage.py migrate --settings=codango.settings;
+web: python bucketlist_application/manage.py migrate --settings=bucketlist_application.settings;
 web: gunicorn bucketlist_application.wsgi --log-file -
