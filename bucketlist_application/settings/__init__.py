@@ -5,4 +5,4 @@ if os.getenv('HEROKU') is not None:
 elif os.getenv('TRAVIS') is not None:
     from .test import *
 else:
-    from .development import *
+    from .production import *
