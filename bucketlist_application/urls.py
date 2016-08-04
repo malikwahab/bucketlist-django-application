@@ -1,4 +1,6 @@
+import django
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 from django.contrib import admin
 from rest_framework.urlpatterns import format_suffix_patterns
 from buppli import api
@@ -26,4 +28,6 @@ urlpatterns = [
     url(r'^api/v1/', include(bucketlist_router.urls)),
     url(r'^api/v1/docs/', include("rest_framework_swagger.urls")),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^static/(?P<path>.*)$',
+        django.views.static.serve, {'document_root': settings.STATIC_ROOT}),
 ]
