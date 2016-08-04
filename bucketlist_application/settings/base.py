@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'rest_framework_swagger',
     'buppli.apps.BuppliConfig',
     'bootstrap3',
+    'django_nose',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,6 +92,14 @@ import datetime
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=21600)
 }
+
+# Nose test coverage
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=buppli',
+]
 
 
 # Database
