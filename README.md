@@ -11,7 +11,7 @@ A bucketlist application in Django with API endpoint
 Buppli is an application for creating and managing a bucketlist, with available API to perform the actions. Built with [django-restful-framework](http://www.django-rest-framework.org/), it implements token Based Authentication for the API and only methods to register and login are accessible to unauthenticated users. Data is exchanged as JSON.
 
 ## API Documentation
-Documentation is available [here](buppli.herokuapp.com/api/v1/docs/)
+Documentation is available [here](http://buppli.herokuapp.com/api/v1/docs/)
 
 ## Installation
 Clone the repo
