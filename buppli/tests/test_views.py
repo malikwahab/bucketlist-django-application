@@ -1,8 +1,6 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.webdriver.firefox.webdriver import WebDriver
 from django.contrib.auth.models import User
 from selenium import webdriver
-import time
 
 
 class IndexPageViewTestCase(StaticLiveServerTestCase):

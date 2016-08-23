@@ -3,8 +3,7 @@ from buppli.permissions import IsOwner, IsBucketListOwner
 from rest_framework.response import Response
 from rest_framework_jwt.settings import api_settings
 from buppli.models import BucketList, BucketListItem
-from rest_framework import (mixins, generics, permissions, viewsets, renderers,
-                            status)
+from rest_framework import (mixins, permissions, viewsets, status)
 from buppli.serializers import (BucketListSerializer, UserSerializer,
                                 BucketListItemSerializer,
                                 PublicBucketListSerializer)

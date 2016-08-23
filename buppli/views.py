@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from buppli.forms import LoginForm, SignUpForm
-from django.views.generic import View, TemplateView
+from django.views.generic import TemplateView
 from buppli.models import BucketList
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
 from django.template import RequestContext
 
 # Create your views here.

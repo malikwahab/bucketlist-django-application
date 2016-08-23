@@ -2,7 +2,6 @@ from rest_framework import serializers
 from buppli.models import BucketList, BucketListItem
 from django.utils.timezone import now
 from django.contrib.auth.models import User
-from rest_framework_jwt.settings import api_settings
 
 
 class BucketListItemSerializer(serializers.ModelSerializer):
