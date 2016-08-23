@@ -18,14 +18,20 @@ Clone the repo
 ```
 git clone https://github.com/andela-aabdulwahab/bucketlist-django-application.git
 ```
+After cloning, create a virtual environment and install the requirements. For Linux and Mac users:
 
-Install the necessary packages
+ ```sh
+$ virtualenv venv
+$ source venv/bin/activate
+$ pip install -r requirements
+ ```
+ If you are on Windows, then use the following commands instead:
+
+ ```sh
+$ virtualenv venv
+$ venv\Scripts\activate
+(venv) $ pip install -r requirements.txt
 ```
-
-pip install -r requirements.txt
-```
-
-
 
 ## Perform migrations
 ```
