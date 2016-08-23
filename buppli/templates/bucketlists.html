@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+    {% block body %}
+     <nav class="navbar navbar-default">
+       <div class="container-fluid">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header">
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-buppli-navbar-collapse-1" aria-expanded="false">
+             <span class="sr-only">Toggle navigation</span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+           <a class="navbar-brand" href="#">buppli</a>
+         </div>
+
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-buppli-navbar-collapse-1">
+
+           <ul class="nav navbar-nav navbar-right">
+             <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }} <span class="caret"></span></a>
+               <ul class="dropdown-menu">
+                 <li><a href="/logout">Logout</a></li>
+               </ul>
+             </li>
+           </ul>
+         </div><!-- /.navbar-collapse -->
+       </div><!-- /.container-fluid -->
+   </nav>
+   <div class="container" >
+               <div class="row bucketlists-row" >
+                   {% for bucketlist in bucketlists.all %}
+                   <div class="col-md-4 col-sm-12" >
+                           <div class="bucketlist" data-id={{bucketlist.id}} >
+                               <h4 class="bucketlist-head"> <span class="bucketlist-name">{{ bucketlist.name }}</span>
+                                   <span class="pull-right">
+                                       {% if bucketlist.is_public %}
+                                       <i class="fa fa-unlock bucketlist-public" data-public="true" aria-hidden="true" title="make private"></i>
+                                       {% else %}
+                                       <i class="fa fa-lock bucketlist-public" data-public="false" aria-hidden="true" title="make public"></i>
+                                       {% endif %}
+                                       <span class="glyphicon glyphicon-remove bucketlist-delete" aria-hidden="true"></span>
+                                   </span>
+                               </h4>
+                           <div class="item-not-done" >
+                           {% for item in bucketlist.items.all %}
+                             {% if not item.done %}
+                                   <div class="bucketlists-item" data-id={{item.id}}>
+                                       <input type='checkbox' class='done'>
+                                       <a href="#"><span class="glyphicon glyphicon-remove item-delete pull-right" aria-hidden="true"></span></a>
+                                       <p> {{ item.name }} </p>
+                                   </div>
+                             {% endif %}
+                           {% endfor %}
+                           </div>
+                           <div class="item-done" >
+                           {% for item in bucketlist.items.all %}
+                             {% if item.done %}
+                                   <div class="bucketlists-item" data-id={{item.id}}>
+                                       <input type='checkbox' class='done' checked >
+                                       <a href="#"><span class="glyphicon glyphicon-remove item-delete pull-right" aria-hidden="true"></span></a>
+                                       <p> {{ item.name }} </p>
+                                   </div>
+                             {% endif %}
+                           {% endfor %}
+                           </div>
+
+                           <form method="POST" action="/api/v1/bucketlists/{{bucketlist.id}}/items/" >
+                               <textarea class="form-control" rows="2"></textarea>
+                               <button type="submit" class="btn btn-primary btn-xs pull-right">
+                                save
+                               </button>
+                           </form>
+                           <div class="bucketlist-footer" >
+                               <a href="#"><span class="glyphicon glyphicon-unlock" aria-hidden="true"></span></a>
+                           </div>
+                           <div class="item-add" >
+                               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                           </div>
+                          </div>
+                   </div>
+                   {% endfor %}
+               </div>
+               <button type="button" class="add-bucketlist" data-toggle="modal" data-target="#bucketlist-form">
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+               </button>
+               <!-- Modal -->
+                <div class="modal fade" id="bucketlist-form" tabindex="-1" role="dialog" aria-labelledby="bucketlist-formLabel">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="bucketlist-formLabel">Create Bucketlist</h4>
+                  </div>
+                  <div class="modal-body">
+                      <form method="POST" action="/api/v1/bucketlists/" >
+                          <textarea class="form-control" rows="2" name="name" ></textarea>
+                          {% csrf_token %}
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary create" data-dismiss="modal">Create</button>
+                  </div>
+                </div>
+                </div>
+                </div>
+{% endblock %}

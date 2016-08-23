@@ -3,3 +3,13 @@
 
 # cache files
 *.pyc
+
+superuser
+overview.txt
+
+/staticfiles/
+bucketlist_application/staticfiles/
+bucketlist_application/ghostdriver.log
+
+.coverage
+ghostdriver.log

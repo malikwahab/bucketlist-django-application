@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+    {% block body %}
+        <div class="jumbotron" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8" >
+                        <h1>Live your dreams</h1>
+                        <p>The biggest adventure you can take is to live the life of your dreams</p>
+                    </div>
+                    <div class="col-md-4" >
+                        <div>
+                          <!-- Nav tabs -->
+                          <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" {% if not signuperror %}class="active"{% endif %}><a href="#login" aria-controls="login" role="tab" data-toggle="tab">login</a></li>
+                            <li role="presentation" {% if signuperror %}class="active"{% endif %}><a href="#signup" aria-controls="signup" role="tab" data-toggle="tab">signup</a></li>
+                          </ul>
+
+                          <!-- Tab panes -->
+                          <div class="tab-content">
+                            <div role="tabpanel" {% if not signuperror %}class="tab-pane active"{% else %}class="tab-pane"{% endif %} id="login">
+                                <form method="post" >
+                                    {% if error %}
+                                        {% bootstrap_alert error alert_type='error' %}
+                                    {% endif %}
+                                    {% csrf_token %}
+                                    {% bootstrap_form loginform %}
+                                    <input name="login" hidden />
+                                      {% buttons %}
+                                        <button type="submit" class="btn btn-primary" name="signin">
+                                         Login
+                                        </button>
+                                      {% endbuttons %}
+                                </form>
+                            </div>
+                            <div role="tabpanel" {% if signuperror %}class="tab-pane active"{% else %}class="tab-pane"{% endif %} id="signup">
+                                <form method="post" >
+                                    {% if signuperror %}
+                                        {% if signuperror.username %}
+                                            {{ signuperror.username }}
+                                        {% else %}
+                                            <ul class="errorlist" >
+                                                <li>Password does not match </li>
+                                            </ul>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% csrf_token %}
+                                    {% bootstrap_form signupform %}
+                                      {% buttons %}
+                                        <button type="submit" class="btn btn-primary" name="signup">
+                                         Sign Up
+                                        </button>
+                                      {% endbuttons %}
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> {# end of jumbotron #}
+
+        <div class="container" >
+            <h2 class="heading"> Looking for Ideas? </h2>
+            <div class="row bucketlists-row" >
+                {% for bucketlist in bucketlists %}
+                <div class="col-md-4" >
+                        <div class="bucketlist" >
+                            <h4 class="bucketlist-head"> {{ bucketlist.name }} </h3>
+                            <p class="bucketlist-created" >created by: {{ bucketlist.owner }} </p>
+                        {% for item in bucketlist.items.all %}
+                            <div class="bucketlists-item" >
+                                <p> {{ item.name }} </p>
+                            </div>
+                        {% endfor %}
+                            <div class="item-add-disabled" >
+                            </div>
+                        </div>
+                </div>
+                {% endfor %}
+            </div>
+    {% endblock %}

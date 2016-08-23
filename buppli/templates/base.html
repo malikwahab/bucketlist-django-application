@@ -1,0 +1,30 @@
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+<html lang="en" >
+
+<head>
+    <title> buppli</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet", href={% static "css/main.css" %} />
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css" integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJtE" crossorigin="anonymous">
+    <style >
+    </style>
+</head>
+
+<body>
+        {% block body %}{% endblock %}
+        <footer>
+            <hr class="divider">
+            <p class="pull-right"><a href="#">Back to top</a></p>
+            <p>&copy; 2016 <a href="https://github.com/andela-aabdulwahab" target="_blank">andela-aabdulwahab</a> </p>
+        </footer>
+    </div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://npmcdn.com/packery@2.1/dist/packery.pkgd.min.js"></script>
+{% bootstrap_javascript %}
+<script src={% static "js/main.js" %} ></script>
+</html>
