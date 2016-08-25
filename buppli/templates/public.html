@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+    {% block body %}
+     <nav class="navbar navbar-default">
+       <div class="container-fluid">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header">
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-buppli-navbar-collapse-1" aria-expanded="false">
+             <span class="sr-only">Toggle navigation</span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+           <a class="navbar-brand" href="/bucketlists">buppli</a>
+         </div>
+
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-buppli-navbar-collapse-1">
+
+           <ul class="nav navbar-nav navbar-right">
+             <li class="active"> <a href="/bucketlists" >My BucketList</a> </li>
+             <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }} <span class="caret"></span></a>
+               <ul class="dropdown-menu">
+                 <li><a href="/logout">Logout</a></li>
+               </ul>
+             </li>
+           </ul>
+         </div><!-- /.navbar-collapse -->
+       </div><!-- /.container-fluid -->
+   </nav>
+
+   <div class="container" >
+       <h2 class="heading"> Looking for Ideas? </h2>
+       <div class="row bucketlists-row" >
+           {% for bucketlist in bucketlists %}
+           <div class="col-md-4" >
+                   <div class="bucketlist" >
+                       <h4 class="bucketlist-head"> {{ bucketlist.name }} </h3>
+                       <p class="bucketlist-created" >created by: {{ bucketlist.owner }} </p>
+                   {% for item in bucketlist.items.all %}
+                       <div class="bucketlists-item" >
+                           <p> {{ item.name }} </p>
+                       </div>
+                   {% endfor %}
+                       <div class="item-add-disabled" >
+                       </div>
+                   </div>
+           </div>
+           {% endfor %}
+       </div>
+{% endblock %}
