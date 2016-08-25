@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
-from buppli.forms import LoginForm, SignUpForm
-from django.views.generic import TemplateView
-from buppli.models import BucketList
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, render
 from django.template import RequestContext
+from django.views.generic import TemplateView
+
+from buppli.forms import LoginForm, SignUpForm
+from buppli.models import BucketList
+
 
 # Create your views here.
 
@@ -96,4 +98,22 @@ class BucketListView(LoginRequiredMixin, TemplateView):
         """Get all the bucketlist belonging to the requesting user."""
         context = super(BucketListView, self).get_context_data(**kwargs)
         context['bucketlists'] = self.request.user.bucketlists
+        return context
+
+
+class PublicBucketListView(LoginRequiredMixin, TemplateView):
+    """Viewset for the /public-bucketlists page.
+
+    Inherits:
+        LoginRequiredMixin: Ensure all request is authenticated
+        TemplateView
+    """
+    login_url = '/'
+    template_name = 'public.html'
+
+    def get_context_data(self, **kwargs):
+        """Get all the bucketlist belonging to the requesting user."""
+        context = super(PublicBucketListView, self).get_context_data(**kwargs)
+        context['bucketlists'] = (BucketList.objects.filter(is_public=True)
+                                  .all())
         return context
