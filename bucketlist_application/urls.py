@@ -8,6 +8,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from rest_framework_nested.routers import NestedSimpleRouter
 from buppli.views import IndexView, BucketListView, logout_view
+from graphene_django.views import GraphQLView
 
 router = DefaultRouter()
 router.register(r'auth/register', api.UserViewSet)
@@ -30,4 +31,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^static/(?P<path>.*)$',
         django.views.static.serve, {'document_root': settings.STATIC_ROOT}),
+    url(r'^graphql', GraphQLView.as_view(graphiql=True)),
 ]

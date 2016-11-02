@@ -37,7 +37,15 @@ INSTALLED_APPS = (
     'buppli.apps.BuppliConfig',
     'bootstrap3',
     'django_nose',
+    'graphene_django',
 )
+
+GRAPHENE = {
+    'SCHEMA': 'bucketlist_application.schema.schema',
+    'MIDDLEWARE': (
+        'graphene_django.debug.DjangoDebugMiddleware',
+    )
+}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
