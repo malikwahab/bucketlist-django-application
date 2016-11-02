@@ -19,8 +19,14 @@ class BucketList(BaseModel):
     is_public = models.BooleanField(default=False)
     owner = models.ForeignKey('auth.User', related_name='bucketlists')
 
+    def __str__(self):
+        return self.name
+
 
 class BucketListItem(BaseModel):
 
     done = models.BooleanField(default=False)
     bucketlist = models.ForeignKey(BucketList, related_name="items")
+
+    def __str__(self):
+        return self.name
